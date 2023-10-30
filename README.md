@@ -12,7 +12,6 @@ A data model to store and compare software version numbers (https://semver.org)
 ## Table of contents
 
 * [Usage](#usage)
-* [Advanced usage](#advanced-usage)
 * [Requirements](#requirements)
 * [Installation](#installation)
     * [Cocoapods](#cocoapods)
