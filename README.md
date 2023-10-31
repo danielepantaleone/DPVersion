@@ -37,7 +37,7 @@ let e: DPVersion = "2.0" // literal init with major + minor
 Add the dependency to the `DPVersion` framework in your `Podfile`:
 
 ```ruby
-pod 'DPVersion', '~> 1.0.0'
+pod 'DPVersion', '~> 1.1.0'
 ```
 
 ### Swift Package Manager

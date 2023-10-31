@@ -11,34 +11,34 @@
 
 import Foundation
 
-/// A data model to store and compare software version numbers (see "https://semver.org").
+/// A data model to store and compare version numbers (see "https://semver.org").
 public struct DPVersion: Codable, Equatable, Comparable, CustomStringConvertible, ExpressibleByStringLiteral {
     
     /// The major version number.
-    public private (set) var major: Int
+    public private (set) var major: UInt
     /// The minor version number.
-    public private (set) var minor: Int
+    public private (set) var minor: UInt
     /// The patch version number.
-    public private (set) var patch: Int
+    public private (set) var patch: UInt
     /// The alpha version number or `0` if this version is not an alpha.
-    public private (set) var alpha: Int
+    public private (set) var alpha: UInt
     /// The beta version number or `0` if this version is not a beta.
-    public private (set) var beta: Int
+    public private (set) var beta: UInt
     /// The development version number or `0` if this version is not a development one.
-    public private (set) var dev: Int
+    public private (set) var dev: UInt
     /// The release candidate version number or `0` if this version is not a release candidate.
-    public private (set) var rc: Int
+    public private (set) var rc: UInt
     
     // MARK: - Computed properties
     
     /// Returns `true` if this version is an Alpha, `false` otherwise.
-    public var isAlpha: Bool { alpha != 0 }
+    public var isAlpha: Bool { alpha > 0 }
     /// Returns `true` if this version is a Beta one, `false` otherwise.
-    public var isBeta: Bool { beta != 0 }
+    public var isBeta: Bool { beta > 0 }
     /// Returns `true` if this version is a Development one, `false` otherwise.
-    public var isDevelopment: Bool { dev != 0 }
+    public var isDevelopment: Bool { dev > 0 }
     /// Returns `true` if this version is a Release Candidate one, `false` otherwise.
-    public var isRc: Bool { rc != 0 }
+    public var isRc: Bool { rc > 0 }
     /// Returns `true` if this version is a Pre-Release one (i.e. Alpha || Beta || Development || Release Candidate), `false` otherwise.
     public var isPreRelease: Bool { isAlpha || isBeta || isDevelopment || isRc }
     
@@ -50,7 +50,7 @@ public struct DPVersion: Codable, Equatable, Comparable, CustomStringConvertible
     ///   - major: The major version number
     ///   - minor: The minor version number
     ///   - patch: The patch version number
-    public init(major: Int, minor: Int, patch: Int) {
+    public init(major: UInt, minor: UInt, patch: UInt) {
         self.major = major
         self.minor = minor
         self.patch = patch
@@ -67,7 +67,7 @@ public struct DPVersion: Codable, Equatable, Comparable, CustomStringConvertible
     ///   - minor: The minor version number
     ///   - patch: The patch version number
     ///   - alpha: The alpha version number
-    public init(major: Int, minor: Int, patch: Int, alpha: Int) {
+    public init(major: UInt, minor: UInt, patch: UInt, alpha: UInt) {
         self.major = major
         self.minor = minor
         self.patch = patch
@@ -84,7 +84,7 @@ public struct DPVersion: Codable, Equatable, Comparable, CustomStringConvertible
     ///   - minor: The minor version number
     ///   - patch: The patch version number
     ///   - beta: The beta version number
-    public init(major: Int, minor: Int, patch: Int, beta: Int) {
+    public init(major: UInt, minor: UInt, patch: UInt, beta: UInt) {
         self.major = major
         self.minor = minor
         self.patch = patch
@@ -101,7 +101,7 @@ public struct DPVersion: Codable, Equatable, Comparable, CustomStringConvertible
     ///   - minor: The minor version number
     ///   - patch: The patch version number
     ///   - dev: The development version number
-    public init(major: Int, minor: Int, patch: Int, dev: Int) {
+    public init(major: UInt, minor: UInt, patch: UInt, dev: UInt) {
         self.major = major
         self.minor = minor
         self.patch = patch
@@ -118,7 +118,7 @@ public struct DPVersion: Codable, Equatable, Comparable, CustomStringConvertible
     ///   - minor: The minor version number
     ///   - patch: The patch version number
     ///   - rc: The release candidate version
-    public init(major: Int, minor: Int, patch: Int, rc: Int) {
+    public init(major: UInt, minor: UInt, patch: UInt, rc: UInt) {
         self.major = major
         self.minor = minor
         self.patch = patch
@@ -160,7 +160,7 @@ public struct DPVersion: Codable, Equatable, Comparable, CustomStringConvertible
     
     public static func < (lhs: DPVersion, rhs: DPVersion) -> Bool {
         
-        func compare(_ lhs: [Int], _ rhs: [Int]) -> ComparisonResult {
+        func compare(_ lhs: [UInt], _ rhs: [UInt]) -> ComparisonResult {
             for (lhsValue, rhsValue) in zip(lhs, rhs) {
                 if lhsValue < rhsValue {
                     return .orderedAscending
@@ -197,10 +197,10 @@ public struct DPVersion: Codable, Equatable, Comparable, CustomStringConvertible
     
     public init(stringLiteral value: String) {
         
-        func findInt(from match: NSTextCheckingResult?, at index: Int, in buffer: String) -> Int {
+        func findInt(from match: NSTextCheckingResult?, at index: Int, in buffer: String) -> UInt {
             if let match,
                let valueRange = Range(match.range(at: index), in: buffer),
-               let valueCapture = Int(buffer[valueRange]) {
+               let valueCapture = UInt(buffer[valueRange]) {
                 return valueCapture
             }
             return 0
