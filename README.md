@@ -12,7 +12,6 @@ A data model to store and compare software version numbers (https://semver.org)
 ## Table of contents
 
 * [Usage](#usage)
-* [Requirements](#requirements)
 * [Installation](#installation)
     * [Cocoapods](#cocoapods)
     * [Swift Package Manager](#swift-package-manager)
@@ -30,12 +29,6 @@ let c: DPVersion = DPVersion(major: 2, minor: 7, patch: 0, beta: 5) // default i
 let d: DPVersion = "2.0.0" // literal init with major + minor + patch
 let e: DPVersion = "2.0" // literal init with major + minor
 ```
-
-## Requirements
-
-- iOS **11+**
-- Xcode **15+** 
-- Swift **5.7+**  
 
 ## Installation
 
